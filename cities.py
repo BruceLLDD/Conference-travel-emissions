@@ -40,7 +40,7 @@ class City:
 
 class CityCollection:
     def __init__(self, list_cities: list):
-        self.list_cities = list_cities
+        self.cities = list_cities
 
     def countries(self) -> List[str]:
         raise NotImplementedError
@@ -68,3 +68,8 @@ class CityCollection:
 
     def plot_top_emitters(self, city: City, n: int, save: bool):
         raise NotImplementedError
+
+
+list_of_cities = ['zurich', 'san_francisco']
+city_collection =CityCollection(list_of_cities)
+print(city_collection.cities == list_of_cities)
