@@ -73,8 +73,14 @@ class CityCollection:
         return total_distance
 
     def travel_by_country(self, city: City) -> Dict[str, float]:
-        dict = {}
-        
+        countries = self.countries()
+        dict_ = {}.fromkeys(countries, 0.)
+        for i in self.cities:
+            country = i.country
+            distance = i.citizens*i.distance_to(city)
+            dict_[country] += distance
+        return dict_
+
 
     def total_co2(self, city: City) -> float:
         raise NotImplementedError
