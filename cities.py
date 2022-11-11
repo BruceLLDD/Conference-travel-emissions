@@ -3,6 +3,7 @@ import math
 
 
 
+
 class City:
     def __init__(self, name: str, country: str, citizens: int,
                  latitude: float, longitude: float):
@@ -24,7 +25,6 @@ class City:
 
     # calculate the distance  from a city to another
     def distance_to(self, other: 'City') -> float:
-        Buenos_Aires = 'City'
         lati1 = self.latitude
         lati2 = other.latitude
         long1 = self.longitude
@@ -36,16 +36,25 @@ class City:
         return distance
 
     def co2_to(self, other: 'City') -> float:
-        self.distance_to(Buenos_Aires)
+        distance = self.distance_to(other)
+        if(distance>=0 and distance<=1000):
+            emit = self.citizens*200*distance
+        elif(distance>1000 and distance<=8000):
+            emit = self.citizens*250*distance
+        else:
+            emit = self.citizens*300*distance
+        return emit
+
+
 
 
 class CityCollection:
 
 
-    def __init__(self, list_cities: list, country: list, total_attendees: int):
+    def __init__(self, list_cities: list):
         self.cities = list_cities
-        self.countries = country
-        self.total_attendees = total_attendees
+        # self.countries = country
+        # self.total_attendees = total_attendees
 
     def countries(self) -> List[str]:
         return self.countries()
@@ -75,18 +84,11 @@ class CityCollection:
         raise NotImplementedError
 
 
-# list_of_cities = ['zurich', 'san_francisco']
-# city_collection =CityCollection(list_of_cities)
-# print(city_collection.cities == list_of_cities)
 
 
 
 
 
 
-Algiers = City('Algiers', 'Algeria', 1, 28.0000272, 2.9999825)
-
-Buenos_Aires = City('Buenos_Aires', 'Argentina', 5, -34.6075616, -58.437076)
 
 
-print(Algiers.distance_to(Buenos_Aires))
