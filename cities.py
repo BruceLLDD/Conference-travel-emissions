@@ -83,7 +83,11 @@ class CityCollection:
 
 
     def total_co2(self, city: City) -> float:
-        raise NotImplementedError
+        total_co2 = 0.
+        for i in self.cities:
+            co2 = i.co2_to(city) * i.citizens
+            total_co2 = total_co2 + co2
+        return total_co2
 
     def co2_by_country(self, city: City) -> Dict[str, float]:
         raise NotImplementedError
