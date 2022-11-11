@@ -1,5 +1,6 @@
 from typing import Dict, List, Tuple
 import math
+import matplotlib.pyplot as plt
 
 
 class City:
@@ -116,4 +117,27 @@ class CityCollection:
 
 
     def plot_top_emitters(self, city: City, n: int, save: bool):
-        raise NotImplementedError
+        dict_countries = self.co2_by_country(city)
+        sorted_countries = sorted(dict_countries.items(), key=lambda dc: (dc[1], dc[0]), reverse=True)
+
+        countries = []
+        total_emissions = []
+        other_emissions = 0.
+        for i in range(n):
+            countries.append(sorted_countries[i][0])
+            total_emissions.append(sorted_countries[i][1]/1000)
+        for i in range(n, len(sorted_countries)):
+            other_emissions = other_emissions + sorted_countries[i][1]
+
+        countries.append('Everywhere else')
+        total_emissions.append(other_emissions/1000)
+        plt.figure(figsize=(15, 15))
+        plt.xticks(rotation=45, fontsize=14)
+        plt.bar(countries, total_emissions, color=['r', 'g', 'b'])
+        plt.title(f"Total emissions from each country(top {n})")
+        plt.ylabel("Total emissions (tonnes CO2)")
+        if save:
+            plt.savefig("./buenos_aires.png")
+        else:
+            plt.show()
+
