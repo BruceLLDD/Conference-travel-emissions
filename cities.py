@@ -74,12 +74,12 @@ class CityCollection:
 
     def travel_by_country(self, city: City) -> Dict[str, float]:
         countries = self.countries()
-        dict_ = {}.fromkeys(countries, 0.)
+        dict_distance = {}.fromkeys(countries, 0.)
         for i in self.cities:
             country = i.country
             distance = i.citizens*i.distance_to(city)
-            dict_[country] += distance
-        return dict_
+            dict_distance[country] += distance
+        return dict_distance
 
 
     def total_co2(self, city: City) -> float:
@@ -90,10 +90,19 @@ class CityCollection:
         return total_co2
 
     def co2_by_country(self, city: City) -> Dict[str, float]:
-        raise NotImplementedError
+        countries = self.countries()
+        dict_co2 = {}.fromkeys(countries, 0.)
+        for i in self.cities:
+            country = i.country
+            co2 = i.citizens * i.co2_to(city)
+            dict_co2[country] += co2
+        return dict_co2
 
     def summary(self, city: City):
-        raise NotImplementedError
+        print(f'Host city: {city.name} ({city.country})')
+        print(f'Total CO2: {round(self.total_co2(city)/1000)} tonnes')
+        print(f'Total attendees travelling to {city.name} from {len(self.cities)-1} different cities: {self.total_attendees()-city.citizens}')
+
 
     def sorted_by_emissions(self) -> List[Tuple[str, float]]:
         raise NotImplementedError
