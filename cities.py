@@ -59,7 +59,11 @@ class CityCollection:
         return countries_list
 
     def total_attendees(self) -> int:
-        return self.total_attendees()
+        attendees = 0
+        for i in self.cities:
+            new_attendees = i.citizens
+            attendees = attendees+new_attendees
+        return attendees
 
     def total_distance_travel_to(self, city: City) -> float:
         raise NotImplementedError
