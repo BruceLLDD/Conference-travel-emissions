@@ -2,8 +2,6 @@ from typing import Dict, List, Tuple
 import math
 
 
-
-
 class City:
     def __init__(self, name: str, country: str, citizens: int,
                  latitude: float, longitude: float):
@@ -12,6 +10,7 @@ class City:
         self.citizens = citizens
         self.latitude = latitude
         self.longitude = longitude
+
         if (type(self.name) != type('str')):
             raise Exception('name should be passed as strings')
         if (type(self.country) != type('str')):
@@ -37,27 +36,27 @@ class City:
 
     def co2_to(self, other: 'City') -> float:
         distance = self.distance_to(other)
-        if(distance>=0 and distance<=1000):
-            emit = self.citizens*200*distance
-        elif(distance>1000 and distance<=8000):
-            emit = self.citizens*250*distance
+        if (distance >= 0 and distance <= 1000):
+            emit = self.citizens * 200 * distance
+        elif (distance > 1000 and distance <= 8000):
+            emit = self.citizens * 250 * distance
         else:
-            emit = self.citizens*300*distance
+            emit = self.citizens * 300 * distance
         return emit
-
-
 
 
 class CityCollection:
 
-
     def __init__(self, list_cities: list):
         self.cities = list_cities
-        # self.countries = country
-        # self.total_attendees = total_attendees
 
     def countries(self) -> List[str]:
-        return self.countries()
+        countries_list = []
+        for i in self.cities:
+            if i.country not in countries_list:
+                countries_list.append(i.country)
+
+        return countries_list
 
     def total_attendees(self) -> int:
         return self.total_attendees()
@@ -82,13 +81,3 @@ class CityCollection:
 
     def plot_top_emitters(self, city: City, n: int, save: bool):
         raise NotImplementedError
-
-
-
-
-
-
-
-
-
-
