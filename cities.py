@@ -105,7 +105,15 @@ class CityCollection:
 
 
     def sorted_by_emissions(self) -> List[Tuple[str, float]]:
-        raise NotImplementedError
+        list0 = []
+        for i in self.cities:
+            total_co2 = self.total_co2(i)
+            list0.append((i.name, total_co2))
+        result = sorted(list0, key=lambda x: (x[1], x[0]))
+        return result
+
+
+
 
     def plot_top_emitters(self, city: City, n: int, save: bool):
         raise NotImplementedError
