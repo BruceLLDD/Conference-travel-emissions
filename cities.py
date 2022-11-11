@@ -27,7 +27,7 @@ class City:
         lati1 = self.latitude
         lati2 = other.latitude
         long1 = self.longitude
-        long2 = other.latitude
+        long2 = other.longitude
         R = 6371
         distance = 2 * R * math.asin(math.sqrt(math.pow(math.sin((lati2 - lati1) / 2), 2) +
                                                math.cos(lati1) * math.cos(lati2) *
@@ -66,10 +66,15 @@ class CityCollection:
         return attendees
 
     def total_distance_travel_to(self, city: City) -> float:
-        raise NotImplementedError
+        total_distance = 0.
+        for i in self.cities:
+            distance = i.distance_to(city)*i.citizens
+            total_distance = total_distance+distance
+        return total_distance
 
     def travel_by_country(self, city: City) -> Dict[str, float]:
-        raise NotImplementedError
+        dict = {}
+        
 
     def total_co2(self, city: City) -> float:
         raise NotImplementedError
