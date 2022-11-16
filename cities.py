@@ -113,7 +113,7 @@ class CityCollection:
         result = sorted(list0, key=lambda x: (x[1], x[0]))
         return result
 
-    def plot_top_emitters(self, city: City, n: int, save: bool):
+    def plot_top_emitters(self, city: City, n: int = 10, save: bool = False):
         dict_countries = self.co2_by_country(city)
         sorted_countries = sorted(dict_countries.items(), key=lambda dc: (dc[1], dc[0]), reverse=True)
 
@@ -135,6 +135,6 @@ class CityCollection:
         plt.ylabel("Total emissions (tonnes CO2)")
         plt.subplots_adjust(bottom=0.2)
         if save:
-            plt.savefig("./buenos_aires.png")
+            plt.savefig(f"./{city.name}.png")
         else:
             plt.show()
