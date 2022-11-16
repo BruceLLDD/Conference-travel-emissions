@@ -135,6 +135,6 @@ class CityCollection:
         plt.ylabel("Total emissions (tonnes CO2)")
         plt.subplots_adjust(bottom=0.2)
         if save:
-            plt.savefig(f"./{city.name}.png")
+            plt.savefig(f"./{city.name.lower().replace(' ', '_')}.png")
         else:
             plt.show()
