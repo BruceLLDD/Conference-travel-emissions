@@ -63,14 +63,14 @@ class CityCollection:
         attendees = 0
         for i in self.cities:
             new_attendees = i.citizens
-            attendees = attendees+new_attendees
+            attendees = attendees + new_attendees
         return attendees
 
     def total_distance_travel_to(self, city: City) -> float:
         total_distance = 0.
         for i in self.cities:
-            distance = i.distance_to(city)*i.citizens
-            total_distance = total_distance+distance
+            distance = i.distance_to(city) * i.citizens
+            total_distance = total_distance + distance
         return total_distance
 
     def travel_by_country(self, city: City) -> Dict[str, float]:
@@ -78,10 +78,9 @@ class CityCollection:
         dict_distance = {}.fromkeys(countries, 0.)
         for i in self.cities:
             country = i.country
-            distance = i.citizens*i.distance_to(city)
+            distance = i.citizens * i.distance_to(city)
             dict_distance[country] += distance
         return dict_distance
-
 
     def total_co2(self, city: City) -> float:
         total_co2 = 0.
@@ -101,9 +100,9 @@ class CityCollection:
 
     def summary(self, city: City):
         print(f'Host city: {city.name} ({city.country})')
-        print(f'Total CO2: {round(self.total_co2(city)/1000)} tonnes')
-        print(f'Total attendees travelling to {city.name} from {len(self.cities)-1} different cities: {self.total_attendees()-city.citizens}')
-
+        print(f'Total CO2: {round(self.total_co2(city) / 1000)} tonnes')
+        print(
+            f'Total attendees travelling to {city.name} from {len(self.cities) - 1} different cities: {self.total_attendees() - city.citizens}')
 
     def sorted_by_emissions(self) -> List[Tuple[str, float]]:
         list0 = []
@@ -112,9 +111,6 @@ class CityCollection:
             list0.append((i.name, total_co2))
         result = sorted(list0, key=lambda x: (x[1], x[0]))
         return result
-
-
-
 
     def plot_top_emitters(self, city: City, n: int, save: bool):
         dict_countries = self.co2_by_country(city)
@@ -125,19 +121,19 @@ class CityCollection:
         other_emissions = 0.
         for i in range(n):
             countries.append(sorted_countries[i][0])
-            total_emissions.append(sorted_countries[i][1]/1000)
+            total_emissions.append(sorted_countries[i][1] / 1000)
         for i in range(n, len(sorted_countries)):
             other_emissions = other_emissions + sorted_countries[i][1]
 
         countries.append('Everywhere else')
-        total_emissions.append(other_emissions/1000)
+        total_emissions.append(other_emissions / 1000)
         plt.figure(figsize=(15, 15))
-        plt.xticks(rotation=45, fontsize=14)
+        plt.xticks(rotation=45, fontsize=20)
         plt.bar(countries, total_emissions, color=['r', 'g', 'b'])
         plt.title(f"Total emissions from each country(top {n})")
         plt.ylabel("Total emissions (tonnes CO2)")
+        plt.subplots_adjust(bottom=0.2)
         if save:
             plt.savefig("./buenos_aires.png")
         else:
             plt.show()
-
